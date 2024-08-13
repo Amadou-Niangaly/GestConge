@@ -29,9 +29,10 @@ public class DemandeService {
         Optional<Demande> optionalDemande = demandeRepository.findById(id);
         if (optionalDemande.isPresent()) {
             Demande updatedDemande = optionalDemande.get();
-            updatedDemande.setType(demande.getType());
             updatedDemande.setDateSoumission(demande.getDateSoumission());
             updatedDemande.setUtilisateur(demande.getUtilisateur());
+            updatedDemande.setConge(demande.getConge());
+            updatedDemande.setPermission(demande.getPermission());
             return demandeRepository.save(updatedDemande);
         }
         else{

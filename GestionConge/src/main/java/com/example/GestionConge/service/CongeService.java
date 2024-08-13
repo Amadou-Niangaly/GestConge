@@ -29,11 +29,11 @@ public class CongeService {
         Optional<Conge> congeOptional = congeRepository.findById(id);
         if (congeOptional.isPresent()) {
             Conge congeToUpdate = congeOptional.get();
-            congeToUpdate.setType(conge.getType());
             congeToUpdate.setStatus(conge.getStatus());
             congeToUpdate.setDateDebut(conge.getDateDebut());
             congeToUpdate.setDateFin(conge.getDateFin());
             congeToUpdate.setUtilisateur(conge.getUtilisateur());
+            congeToUpdate.setDemande(conge.getDemande());
             return congeRepository.save(congeToUpdate);
         }else{
             throw new RuntimeException("conge non trouver par id " + id);

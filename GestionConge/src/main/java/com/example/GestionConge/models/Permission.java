@@ -19,4 +19,6 @@ public class Permission {
     private String status;
     @ManyToOne
     private Utilisateur utilisateur;
+    @OneToOne
+    private  Demande demande;
 }
