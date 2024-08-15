@@ -46,4 +46,8 @@ public class UtilisateurService {
         }
         else throw new RuntimeException("Utilisateur non trouvé par id " + id);
     }
+    //supprimer un utilisateur
+    public void deleteUtilisateur(Long id) {
+        utilisateurRepository.deleteById(id);
+    }
 }
