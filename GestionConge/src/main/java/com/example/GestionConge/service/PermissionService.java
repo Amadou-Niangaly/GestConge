@@ -35,6 +35,7 @@ public class PermissionService {
             permissionToUpdate.setStatus(permission.getStatus());
             permissionToUpdate.setRaison(permission.getRaison());
             permissionToUpdate.setUtilisateur(permission.getUtilisateur());
+            permissionToUpdate.setDemande(permission.getDemande());
            return permissionRepository.save(permissionToUpdate);
         }else{
             throw  new RuntimeException("La permission id " + id + " n'existe pas");

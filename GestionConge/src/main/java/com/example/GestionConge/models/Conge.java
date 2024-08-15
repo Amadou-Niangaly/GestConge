@@ -11,7 +11,6 @@ public class Conge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String type;
     @Temporal(TemporalType.DATE)
     private Date dateDebut;
     @Temporal(TemporalType.DATE)
@@ -19,5 +18,8 @@ public class Conge {
     private String status;
     @ManyToOne
     private Utilisateur utilisateur;
+    @OneToOne
+    private Demande demande;
+
 
 }
