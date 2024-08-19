@@ -1,5 +1,6 @@
 package com.example.GestionConge.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,20 +17,24 @@ public class Utilisateur {
     private String prenom;
     private String email;
     private String password;
-    private String type;
     @Temporal(TemporalType.DATE)
     private Date dateNaissance;
+    @Temporal(TemporalType.DATE)
     private Date dateDebut;
     @ManyToOne
     private Role role;
+    @JsonIgnore
     @OneToMany(mappedBy = "utilisateur")
     private List<Conge> conges;
     @ManyToOne
     private Departement departement;
+    @JsonIgnore
     @OneToMany(mappedBy = "utilisateur")
     private List<Demande> demandes;
+    @JsonIgnore
     @OneToMany(mappedBy = "utilisateur")
     private List<Notification> notifications;
+    @JsonIgnore
     @OneToMany(mappedBy = "utilisateur")
     private List<Permission> permissions;
 }

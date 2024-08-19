@@ -52,4 +52,15 @@ public class PermissionController {
             return ResponseEntity.notFound().build();
         }
     }
+    //Endpoint pour approuver une permission
+    @PutMapping("/{id}/approuver")
+    public ResponseEntity<Permission> approuverPermission(@PathVariable Long id) {
+        Permission approuverPermission = permissionService.approuverPermission(id);
+        return ResponseEntity.ok(approuverPermission);
+    }
+    @PutMapping("/{id}/rejeter")
+    public ResponseEntity<Permission> rejeterPermission(@PathVariable Long id) {
+        Permission rejeterPermission=permissionService.refuserPermission(id);
+        return ResponseEntity.ok(rejeterPermission);
+    }
 }

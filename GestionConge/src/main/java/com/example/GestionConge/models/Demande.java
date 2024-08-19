@@ -1,8 +1,10 @@
 package com.example.GestionConge.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -11,7 +13,7 @@ public class Demande {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date dateSoumission;
+    private LocalDate dateSoumission;
     @ManyToOne
     private Utilisateur utilisateur;
     @OneToOne(mappedBy = "demande")

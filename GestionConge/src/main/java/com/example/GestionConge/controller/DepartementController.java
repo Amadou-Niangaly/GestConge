@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/departement")
+@RequestMapping("/departements")
 public class DepartementController {
     @Autowired
     private DepartementService departementService;

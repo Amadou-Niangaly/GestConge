@@ -39,7 +39,7 @@ public class UtilisateurService {
             utilisateurUpdate.setDemandes(utilisateur.getDemandes());
             utilisateurUpdate.setDepartement(utilisateur.getDepartement());
             utilisateurUpdate.setNotifications(utilisateur.getNotifications());
-            utilisateurUpdate.setType(utilisateur.getType());
+
             utilisateurUpdate.setPermissions(utilisateur.getPermissions());
             utilisateurUpdate.setRole(utilisateur.getRole());
             return utilisateurRepository.save(utilisateurUpdate);

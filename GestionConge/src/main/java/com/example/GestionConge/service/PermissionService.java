@@ -13,6 +13,9 @@ import java.util.Optional;
 public class PermissionService {
     @Autowired
     private PermissionRepository permissionRepository;
+    @Autowired
+    private NotificationService notificationService;
+
     //recuperer tous les permission
     public List<Permission> getAllPermissions() {
         return permissionRepository.findAll();
@@ -44,5 +47,26 @@ public class PermissionService {
     //supprimer une permission
     public void deletePermission(Long id) {
         permissionRepository.deleteById(id);
+    }
+
+    //approuver une permission
+    public Permission approuverPermission(Long id) {
+        Permission permission = permissionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("La permission id " + id + " n'existe pas"));
+        permission.setStatus(Permission.Status.APPROUVE);
+         permissionRepository.save(permission);
+         String message ="votre demande de permission à été approuver";
+         notificationService.sendNotification(permission.getUtilisateur().getId(),message);
+         return permission;
+    }
+    //rejeter une permission
+    public Permission refuserPermission(Long id) {
+        Permission permission=permissionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("La permission id " + id + " n'existe pas"));
+        permission.setStatus(Permission.Status.REJETE);
+         permissionRepository.save(permission);
+         String message ="votre demande de permission n'as pas été approuver";
+         notificationService.sendNotification(permission.getUtilisateur().getId(),message);
+         return permission;
     }
 }

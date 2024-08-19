@@ -26,7 +26,7 @@ public class DemandeController {
         return demande.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
     //ajouter une demande
-    @PostMapping("/{id}")
+    @PostMapping("/ajout")
     public Demande addDemande(@PathVariable Long id, @RequestBody Demande demande) {
         return demandeService.saveDemande(demande);
     }

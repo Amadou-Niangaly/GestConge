@@ -1,10 +1,12 @@
 package com.example.GestionConge.service;
 
 import com.example.GestionConge.models.Notification;
+import com.example.GestionConge.models.Utilisateur;
 import com.example.GestionConge.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +15,9 @@ import java.util.Optional;
 public class NotificationService {
     @Autowired
     private NotificationRepository notificationRepository;
+    @Autowired
+    private UtilisateurService utilisateurService;
+
     //recuperer tous les notifications
     public List<Notification> getAllNotifications() {
         return notificationRepository.findAll();
@@ -30,9 +35,7 @@ public class NotificationService {
         Optional<Notification> notificationOptional = notificationRepository.findById(id);
         if (notificationOptional.isPresent()) {
             Notification notificationToUpdate = notificationOptional.get();
-            notificationToUpdate.setDate(new Date(notification.getDate().getTime()));
             notificationToUpdate.setMessage(notification.getMessage());
-            notificationToUpdate.setStatus(notification.getStatus());
             notificationToUpdate.setUtilisateur(notification.getUtilisateur());
             return notificationRepository.save(notificationToUpdate);
         }
@@ -42,5 +45,17 @@ public class NotificationService {
     public void deleteNotification(long id) {
         notificationRepository.deleteById(id);
     }
+    //envoie des notifications
+    public void sendNotification(Long userId, String message) {
+        Utilisateur utilisateur =utilisateurService.getUtilisateurById(userId)
+                .orElseThrow(() -> new RuntimeException("Le utilisateur n'existe pas "));
+        String messageNom=utilisateur.getNom()+" "+message;
+        Notification notification = new Notification();
+        notification.setUtilisateur(utilisateur);
+        notification.setMessage(message);
+        notification.setDate(LocalDateTime.now());
+        notificationRepository.save(notification);
+    }
+
 
 }

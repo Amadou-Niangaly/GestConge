@@ -30,7 +30,7 @@ public class RoleService {
         Optional<Role> roleOptional = roleRepository.findById(id);
         if (roleOptional.isPresent()) {
             Role roleToUpdate = roleOptional.get();
-            roleToUpdate.setType(role.getType());
+            roleToUpdate.setNom(role.getNom());
             roleToUpdate.setUtilisateurs(role.getUtilisateurs());
             return roleRepository.save(roleToUpdate);
         }

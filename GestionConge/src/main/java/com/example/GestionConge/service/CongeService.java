@@ -12,6 +12,8 @@ import java.util.Optional;
 public class CongeService {
     @Autowired
     private CongeRepository congeRepository;
+    @Autowired
+    private NotificationService notificationService;
     //recuperer tous les conge
     public List<Conge> getAllConges() {
         return congeRepository.findAll();
@@ -43,5 +45,28 @@ public class CongeService {
     //supprimer un conge
     public void deleteConge(Long id) {
         congeRepository.deleteById(id);
+    }
+
+    //approuver un congé
+    public Conge approuverConge(Long id){
+        Conge conge = congeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("conge non trouver"));
+            conge.setStatus(Conge.Status.APPROUVE);
+            congeRepository.save(conge);
+
+            String message="votre demande de congé "+"du " +conge.getDateDebut()+" au "+conge.getDateFin()+" à été accepter";
+            notificationService.sendNotification(conge.getUtilisateur().getId(),message);
+            return conge;
+    }
+    //rejeter un congé
+    public Conge rejeterConge(Long id){
+        Conge conge =congeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("conge non trouver"));
+        conge.setStatus(Conge.Status.REJETE);
+         congeRepository.save(conge);
+
+        String message="votre demande de congé "+"du " +conge.getDateDebut()+" au "+conge.getDateFin()+" à malheuresement été rejeter";
+        notificationService.sendNotification(conge.getUtilisateur().getId(),message);
+        return conge;
     }
 }

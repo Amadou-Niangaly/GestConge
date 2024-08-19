@@ -53,4 +53,16 @@ public class CongeController {
            return ResponseEntity.notFound().build();
         }
     }
+    //Endpoint pour approuver un congé
+    @PutMapping("/{id}/approuver")
+    public ResponseEntity<Conge> approuverConge(@PathVariable Long id) {
+        Conge approuverConge=congeService.approuverConge(id);
+        return ResponseEntity.ok(approuverConge);
+    }
+    //Endpoint pour rejeter un congé
+    @PutMapping("/{id}/rejeter")
+    public ResponseEntity<Conge> rejeterConge(@PathVariable Long id) {
+        Conge rejeterConge=congeService.rejeterConge(id);
+        return ResponseEntity.ok(rejeterConge);
+    }
 }

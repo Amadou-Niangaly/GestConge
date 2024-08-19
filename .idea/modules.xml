@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/GestConge.iml" filepath="$PROJECT_DIR$/.idea/GestConge.iml" />
-      <module fileurl="file://$PROJECT_DIR$/GestionConge/GestionConge.iml" filepath="$PROJECT_DIR$/GestionConge/GestionConge.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/GestionConge.iml" filepath="$PROJECT_DIR$/.idea/GestionConge.iml" />
     </modules>
   </component>
 </project>

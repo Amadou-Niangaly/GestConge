@@ -3,6 +3,8 @@ package com.example.GestionConge.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -12,8 +14,8 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String message;
-    private Date date;
-    private String status;
+    private LocalDateTime date;
     @ManyToOne
     private Utilisateur utilisateur;
+
 }

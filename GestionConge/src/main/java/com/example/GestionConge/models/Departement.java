@@ -1,5 +1,6 @@
 package com.example.GestionConge.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,6 +13,7 @@ public class Departement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
+    @JsonIgnore
     @OneToMany(mappedBy = "departement")
     private List<Utilisateur> utilisateurs;
 }

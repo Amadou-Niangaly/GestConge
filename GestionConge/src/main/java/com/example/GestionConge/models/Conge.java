@@ -1,5 +1,6 @@
 package com.example.GestionConge.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,11 +16,19 @@ public class Conge {
     private Date dateDebut;
     @Temporal(TemporalType.DATE)
     private Date dateFin;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
     @ManyToOne
     private Utilisateur utilisateur;
+    @JsonIgnore
     @OneToOne
     private Demande demande;
-
+   public enum  Status{
+       APPROUVE,REJETE, EN_ATTENTE;
+   }
+   //
+    public Conge() {
+       this.status = Status.EN_ATTENTE;
+    }
 
 }
