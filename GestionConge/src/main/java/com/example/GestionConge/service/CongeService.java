@@ -34,6 +34,7 @@ public class CongeService {
             congeToUpdate.setStatus(conge.getStatus());
             congeToUpdate.setDateDebut(conge.getDateDebut());
             congeToUpdate.setDateFin(conge.getDateFin());
+            congeToUpdate.setType(conge.getType());
             congeToUpdate.setUtilisateur(conge.getUtilisateur());
             congeToUpdate.setDemande(conge.getDemande());
             return congeRepository.save(congeToUpdate);
