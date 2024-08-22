@@ -17,6 +17,7 @@ public class Conge {
     @Temporal(TemporalType.DATE)
     private Date dateFin;
     private String type;
+    private String motif;
     @Enumerated(EnumType.STRING)
     private Status status;
     @ManyToOne

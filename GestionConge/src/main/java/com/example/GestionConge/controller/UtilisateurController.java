@@ -3,9 +3,12 @@ package com.example.GestionConge.controller;
 import com.example.GestionConge.models.Utilisateur;
 import com.example.GestionConge.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,19 +30,27 @@ public class UtilisateurController {
     }
     //AJouter un Utilisateur
     @PostMapping("/ajout")
-    public Utilisateur addUtilisateur(@RequestBody Utilisateur utilisateur) {
-        return utilisateurService.saveUtilisateur(utilisateur);
+    public ResponseEntity<Utilisateur> createUtilisateur(
+            @RequestPart("utilisateur") Utilisateur utilisateur,
+            @RequestPart(value = "photo", required = false) MultipartFile photo) {
+        try {
+            Utilisateur savedUtilisateur = utilisateurService.saveUtilisateur(utilisateur, photo);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedUtilisateur);
+        } catch (IOException e) {
+            // Gérer l'exception, par exemple en renvoyant une erreur HTTP 500
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
     //mise a jour d'un utilisateur
     @PutMapping("/{id}")
-    public ResponseEntity<Utilisateur> updateUtilisateur(@PathVariable Long id, @RequestBody Utilisateur utilisateur) {
-        try {
-            Utilisateur updatedUtilisateur = utilisateurService.updateUtilisateur(id, utilisateur);
-            return ResponseEntity.ok(updatedUtilisateur);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Utilisateur> updateUtilisateur(
+            @PathVariable Long id,
+            @RequestPart("utilisateur") Utilisateur utilisateur,
+            @RequestPart(value = "photo", required = false) MultipartFile photo) {
+        Utilisateur updatedUtilisateur = utilisateurService.updateUtilisateur(id, utilisateur, photo);
+        return ResponseEntity.ok(updatedUtilisateur);
     }
+
     //Endpoint pour supprimer un utilisateur
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUtilisateur(@PathVariable Long id) {

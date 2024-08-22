@@ -17,6 +17,10 @@ public class Utilisateur {
     private String prenom;
     private String email;
     private String password;
+    private String tel;
+
+    @Lob
+    private byte[] photo;
     @Temporal(TemporalType.DATE)
     private Date dateNaissance;
     @Temporal(TemporalType.DATE)

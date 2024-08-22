@@ -26,4 +26,7 @@ public class Permission {
     public enum Status{
         APPROUVE,REJETE,EN_ATTENTE
     }
+    public Permission(){
+        this.status=Status.EN_ATTENTE;
+    }
 }

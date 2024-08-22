@@ -1,6 +1,7 @@
 package com.example.GestionConge.controller;
 
 import com.example.GestionConge.models.Permission;
+import com.example.GestionConge.repository.PermissionRepository;
 import com.example.GestionConge.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,9 @@ import java.util.Optional;
 public class PermissionController {
     @Autowired
     private PermissionService permissionService;
+    @Autowired
+    private PermissionRepository permissionRepository;
+
     //Endpoint pour recuperer la liste
     @GetMapping("/list")
     public List<Permission> getAllPermissions() {
@@ -62,5 +66,10 @@ public class PermissionController {
     public ResponseEntity<Permission> rejeterPermission(@PathVariable Long id) {
         Permission rejeterPermission=permissionService.refuserPermission(id);
         return ResponseEntity.ok(rejeterPermission);
+    }
+    //Endpoint pour tous les permission approuver
+    @GetMapping("/list/approved")
+    public List<Permission> getApprouverPermissions() {
+        return permissionRepository.findByStatus(Permission.Status.APPROUVE);
     }
 }

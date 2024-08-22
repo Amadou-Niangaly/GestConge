@@ -1,6 +1,7 @@
 package com.example.GestionConge.controller;
 
 import com.example.GestionConge.models.Conge;
+import com.example.GestionConge.repository.CongeRepository;
 import com.example.GestionConge.service.CongeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,9 @@ import java.util.Optional;
 public class CongeController {
     @Autowired
     private CongeService congeService;
+    @Autowired
+    private CongeRepository congeRepository;
+
     //Endpoint pour recuperer tout les congé
     @GetMapping("/list")
     public List<Conge> getAllConges() {
@@ -64,5 +68,10 @@ public class CongeController {
     public ResponseEntity<Conge> rejeterConge(@PathVariable Long id) {
         Conge rejeterConge=congeService.rejeterConge(id);
         return ResponseEntity.ok(rejeterConge);
+    }
+    //Endpoint pour tous les congés approuver
+    @GetMapping("/list/approved")
+    public List<Conge> getApprovedConges() {
+        return congeRepository.findByStatus(Conge.Status.APPROUVE);
     }
 }

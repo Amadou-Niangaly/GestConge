@@ -4,7 +4,9 @@ import com.example.GestionConge.models.Utilisateur;
 import com.example.GestionConge.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +19,15 @@ public class UtilisateurService {
         return utilisateurRepository.findAll();
     }
     //enregistrer un user
-    public Utilisateur saveUtilisateur(Utilisateur utilisateur) {
+    public Utilisateur saveUtilisateur(Utilisateur utilisateur, MultipartFile photo) throws IOException {
+        // Mise à jour des champs
+        try {
+            if (photo != null && !photo.isEmpty()) {
+                utilisateur.setPhoto(photo.getBytes());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Erreur lors de la conversion de la photo", e);
+        }
         return utilisateurRepository.save(utilisateur);
     }
     //recuperer un user
@@ -25,10 +35,18 @@ public class UtilisateurService {
         return utilisateurRepository.findById(id);
     }
     //modifier un user
-    public Utilisateur updateUtilisateur(Long id, Utilisateur utilisateur) {
+    public Utilisateur updateUtilisateur(Long id, Utilisateur utilisateur,MultipartFile photo) {
         Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById(id);
         if (utilisateurOptional.isPresent()) {
             Utilisateur utilisateurUpdate = utilisateurOptional.get();
+            // Mise à jour des champs
+            try {
+                if (photo != null && !photo.isEmpty()) {
+                    utilisateur.setPhoto(photo.getBytes());
+                }
+            } catch (IOException e) {
+                throw new RuntimeException("Erreur lors de la conversion de la photo", e);
+            }
             utilisateurUpdate.setNom(utilisateur.getNom());
             utilisateurUpdate.setPrenom(utilisateur.getPrenom());
             utilisateurUpdate.setEmail(utilisateur.getEmail());

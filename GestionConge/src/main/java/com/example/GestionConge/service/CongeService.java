@@ -35,6 +35,7 @@ public class CongeService {
             congeToUpdate.setDateDebut(conge.getDateDebut());
             congeToUpdate.setDateFin(conge.getDateFin());
             congeToUpdate.setType(conge.getType());
+            congeToUpdate.setMotif(conge.getMotif());
             congeToUpdate.setUtilisateur(conge.getUtilisateur());
             congeToUpdate.setDemande(conge.getDemande());
             return congeRepository.save(congeToUpdate);
@@ -70,4 +71,6 @@ public class CongeService {
         notificationService.sendNotification(conge.getUtilisateur().getId(),message);
         return conge;
     }
+    //
+
 }
